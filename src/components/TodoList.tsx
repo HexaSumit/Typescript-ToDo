@@ -11,6 +11,14 @@ const TodoList = ({ todos, setTodos }: TodoListProp) => {
         setTodos((prev) => prev.filter((todo) => todo.id !== id));
     };
 
+        const toggleComplete = (id: number) => {
+        setTodos((prev) =>
+            prev.map((todo) =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
+    }
+
     return (
         <div className="w-[50%] flex flex-col gap-2">
             {todos.length === 0 ? (
@@ -25,7 +33,7 @@ const TodoList = ({ todos, setTodos }: TodoListProp) => {
                             {todo.task}
                         </span>
                         <div className="flex items-center gap-2 cursor-pointer">
-                            <span>{todo.completed ? "✅" : "⏳"}</span>
+                            <span onClick={()=>toggleComplete(todo.id)}>{todo.completed ? "✅" : "⏳"}</span>
 
                             {/* Delete Button */}
                             <button
